@@ -10,11 +10,17 @@ class Letter extends Model
 {
     use HasFactory;
 
+    protected $fillable=[
+        'string',
+        'lang',
+    ];
+
     public function getMarkedString(Request $request)
     {
         $validated = $request->validate(['string' => 'string|max:1000']);
         $string = $validated['string'];
-        if($this->checkLang($string)=='rus'){
+        $lang=$this->checkLang($string);
+        if($lang=='rus'){
             $lettersPos=$this->getEngLetterPos($string);
         }else{
             $lettersPos=$this->getRusLetterPos($string);
@@ -23,7 +29,11 @@ class Letter extends Model
         $markedString=[
             'string'=>$string,
             'marked-string'=>$this->markLetter($stringAsArray,$lettersPos),
+            'lang'=>$lang,
         ];
+        if(!$this->create(['string'=>$string,'lang'=>$lang])){
+            return ;
+        }
         return $markedString;
     }
 
@@ -38,8 +48,8 @@ class Letter extends Model
     public function checkLang(string $string)
     {
         $eng = $rus = 0;
-        $eng=preg_match_all('/[a-z]/mu',$string); 
-        $rus=preg_match_all('/[а-я]/mu',$string);
+        $eng=preg_match_all('/[a-zA-Z]/mu',$string); 
+        $rus=preg_match_all('/[а-яА-Я]/mu',$string);
         if($rus>=$eng){
             return 'rus';
         }else{
@@ -51,7 +61,7 @@ class Letter extends Model
     {
         $lettersPos=[];
         for($i=0;$i<mb_strlen($string);$i++){
-            if(preg_match("/[a-z]/mu",mb_substr($string,$i,1))){
+            if(preg_match("/[a-zA-Z]/mu",mb_substr($string,$i,1))){
                 $lettersPos[]=$i;
             }
         }
@@ -62,7 +72,7 @@ class Letter extends Model
     {
         $lettersPos=[];
         for($i=0;$i<mb_strlen($string);$i++){
-            if(preg_match("/[а-я]/mu",mb_substr($string,$i,1))){
+            if(preg_match("/[а-яА-Я]/mu",mb_substr($string,$i,1))){
                 $lettersPos[]=$i;
             }
         }
@@ -78,6 +88,23 @@ class Letter extends Model
                 $markedString=$markedString.$letter;
             }
         }
+        return $markedString;
+    }
+
+    public function checkChangedString(Request $request)
+    {
+        $validated = $request->validate(['string' => 'string|max:1000']);
+        $string = $validated['string'];
+        if($this->checkLang($string)=='rus'){
+            $lettersPos=$this->getEngLetterPos($string);
+        }else{
+            $lettersPos=$this->getRusLetterPos($string);
+        }
+        $stringAsArray=$this->stringToArr($string);
+        $markedString=[
+            'string'=>$string,
+            'marked-string'=>$this->markLetter($stringAsArray,$lettersPos),
+        ];
         return $markedString;
     }
 }

@@ -1,3 +1,85 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base{
+    table {
+        --bs-table-bg: transparent;
+        --bs-table-accent-bg: transparent;
+        --bs-table-striped-color: #212529;
+        --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+        --bs-table-active-color: #212529;
+        --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+        --bs-table-hover-color: #212529;
+        --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+        vertical-align: top;
+        border-color: #dee2e6;
+    }
+    thead {
+        @apply border-b;
+    }
+    th {
+        @apply text-sm;
+        @apply font-medium;
+        @apply text-center;
+        @apply px-6;
+        @apply py-4;
+    }
+    td {
+        @apply text-sm;
+        @apply font-medium;
+        @apply text-center;
+        @apply px-6;
+        @apply py-4;
+    }
+}
+
+@layer components{
+    .container-main{
+        @apply flex justify-center;
+
+    }
+    .container-content {
+        @apply flex flex-col max-w-2xl;
+    }
+    .container-interact {
+        @apply sticky top-0 bg-slate-100;
+    }
+    .input-main {
+        @apply m-4 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded 
+        ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none;
+    }
+    .text-output {
+        @apply mx-4 mb-4 text-gray-700 text-base mb-4;
+    }
+
+    .btn {
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border: 1px solid transparent;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: .5rem;
+        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    .btn-main {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+        @apply my-2 mx-4;
+    }
+    .td-string{
+        @apply break-all;
+    }
+}

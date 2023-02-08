@@ -17,18 +17,19 @@ class LetterController extends Controller
 
     public function mainPage()
     {
-        return view('mainpage',['data'=>null]);
+        return view('mainpage',['data'=>null,'history'=>$this->model->get()]);
     }
 
     public function markString(Request $request)
     {
         $result = $this->model->getMarkedString($request);
-        return view('mainpage',['data'=>$result]);
+        return view('mainpage',['data'=>$result,'history'=>$this->model->get()]);
     }
 
     public function checkLetter(Request $request)
     {
-        $result = $this->model->main($request);
+        return dd($request);
+        $result = $this->model->checkChangedString($request);
         return $result;
     }
 }
