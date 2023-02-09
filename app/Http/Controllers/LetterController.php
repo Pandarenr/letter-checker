@@ -17,13 +17,13 @@ class LetterController extends Controller
 
     public function mainPage()
     {
-        return view('mainpage',['data'=>null,'history'=>$this->model->get()]);
+        return view('mainpage',['data'=>null,'history'=>$this->model->orderBy('id','desc')->get()]);
     }
 
     public function markString(Request $request)
     {
         $result = $this->model->getMarkedString($request);
-        return view('mainpage',['data'=>$result,'history'=>$this->model->get()]);
+        return view('mainpage',['data'=>$result,'history'=>$this->model->orderBy('id','desc')->get()]);
     }
 
     public function checkEdit(Request $request)
