@@ -26,9 +26,8 @@ class LetterController extends Controller
         return view('mainpage',['data'=>$result,'history'=>$this->model->get()]);
     }
 
-    public function checkLetter(Request $request)
+    public function checkEdit(Request $request)
     {
-        return dd($request);
         $result = $this->model->checkChangedString($request);
         return $result;
     }

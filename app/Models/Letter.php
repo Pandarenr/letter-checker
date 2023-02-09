@@ -93,17 +93,17 @@ class Letter extends Model
 
     public function checkChangedString(Request $request)
     {
-        $validated = $request->validate(['string' => 'string|max:1000']);
+        $validated = $request->validate(['string' => 'string|max:1000','lang'=>'string|max:3']);
         $string = $validated['string'];
-        if($this->checkLang($string)=='rus'){
+        $lang=$validated['lang'];
+        if($lang=='rus'){
             $lettersPos=$this->getEngLetterPos($string);
         }else{
             $lettersPos=$this->getRusLetterPos($string);
         }
         $stringAsArray=$this->stringToArr($string);
         $markedString=[
-            'string'=>$string,
-            'marked-string'=>$this->markLetter($stringAsArray,$lettersPos),
+            'markedString'=>$this->markLetter($stringAsArray,$lettersPos),
         ];
         return $markedString;
     }

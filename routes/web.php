@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'App\Http\Controllers\LetterController@mainpage')->name('mainpage');
-Route::post('/string','App\Http\Controllers\LetterController@markString')->name('string-send');
-Route::post('/letter','App\Http\Controllers\LetterController@markLetter')->name('letter-send');
+Route::post('/','App\Http\Controllers\LetterController@markString')->name('string-send');
+Route::post('/check','App\Http\Controllers\LetterController@checkEdit')->name('check-edit');
