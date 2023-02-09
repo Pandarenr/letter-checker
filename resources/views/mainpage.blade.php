@@ -11,8 +11,8 @@
         <div class="container-main">
             <div class="container-content">
                 <div class="container-interact">
-                    <div class="flex justify-end">
-                        
+                    <div class="flex justify-center mt-4">
+                        Длина строки не более 1000 символов.
                     </div>
                     <form method="POST" action="{{ route('string-send') }}">
                         @csrf
