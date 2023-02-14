@@ -7,7 +7,6 @@ use App\Models\Letter;
 
 class LetterController extends Controller
 {
-
     private $model=null;
 
     public function __construct()

@@ -42,7 +42,7 @@
                         @if($data)
                             {!! $data['marked-string'] !!}
                         @endif
-</div>
+                    </div>
                 </div>
                 <div class="flex justify-center my-4">
                     <label for="">История проверок</label>
