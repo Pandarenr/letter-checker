@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'App\Http\Controllers\LetterController@mainpage')->name('mainpage');
-Route::post('/','App\Http\Controllers\LetterController@markString')->name('string-send');
-Route::post('/check','App\Http\Controllers\LetterController@checkEdit')->name('check-edit');
+Route::get('/', 'App\Http\Controllers\AppController@mainpage')->name('mainpage');
+Route::post('/','App\Http\Controllers\AppController@markString')->name('string-send');
+Route::post('/check','App\Http\Controllers\AppController@checkEdit')->name('check-edit');
