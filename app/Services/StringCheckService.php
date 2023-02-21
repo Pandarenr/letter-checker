@@ -31,7 +31,7 @@ class StringCheckService
     {
         $positions = $this->lettersPos($string, $lang);
         $markedString = $this->markLetter($string, $positions);
-        return ['marked-string' => $markedString];
+        return ['markedString' => $markedString];
     }
 
     public function checkLang(string $string): string

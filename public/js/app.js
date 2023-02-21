@@ -49,8 +49,9 @@ function updateString(httpRequest) {
   if (httpRequest.readyState == 4) {
     if (httpRequest.status == 200) {
       console.log('1');
-      data = httpRequest.responseText;
+      data = JSON.parse(httpRequest.responseText);
       console.log(data);
+      console.log(data.markedString);
       document.getElementById('output').innerHTML = data.markedString;
     } else {}
   }
