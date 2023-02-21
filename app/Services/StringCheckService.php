@@ -27,7 +27,6 @@ class StringCheckService
     {
         $lang = $this->checkLang($string);
         $markedString = $this->markLetters($string, $lang);
-       // $markedString = $this->markLetter($string, $positions);
         $create = $this->checkedString->create(['string' => $string,'lang' => $lang,]);
         return [
             'string' => $string,

@@ -8,8 +8,8 @@ use App\Services\StringCheckService;
 
 class AppController extends Controller
 {
-    private $model=null;
-    private $stringCheckService;
+    private $model = null;
+    private $stringCheckService = null;
 
     public function __construct()
     {
@@ -19,7 +19,7 @@ class AppController extends Controller
 
     public function mainPage()
     {
-        return view('mainpage',['data'=>null,'history'=>$this->model->orderBy('id','desc')->get()]);
+        return view('mainpage', ['data' => null,'history' => $this->model->orderBy('id','desc')->get()]);
     }
 
     public function markString(Request $request)
@@ -32,7 +32,7 @@ class AppController extends Controller
 
     public function checkEdit(Request $request)
     {
-        $validated = $request->validate(['string' => 'string|max:1000','lang'=>'string|max:3']);
+        $validated = $request->validate(['string' => 'string|max:1000', 'lang'=>'string|max:3']);
         $string = $validated['string'];
         $lang = $validated['lang'];
         $markedString = $this->stringCheckService->checkChanges($string, $lang);

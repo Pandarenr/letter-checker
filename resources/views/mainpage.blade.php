@@ -17,9 +17,9 @@
                     <form method="POST" action="{{ route('string-send') }}">
                         @csrf
                         <div class="flex flex-col">
-                            <textarea type="text" class="input-main" id="string" name="string" 
+                            <textarea type="text" class="input-main" id="string" name="string"
                             placeholder="Введите строку">@if($data){{ $data['string'] }}@endif</textarea>
-                            <div class="flex justify-between">                                
+                            <div class="flex justify-between">
                                 <div class="flex ml-4 items-center">
                                     <label for="">Язык строки:</label>
                                     <span class="text-output m-0 ml-4" id="lang">
@@ -37,7 +37,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>                    
+                    </form>
                     <div class="text-output" id="output">
                         @if($data)
                             {!! $data['marked-string'] !!}
