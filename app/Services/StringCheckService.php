@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\CheckedString;
+
 class StringCheckService
 {
+    private $checkedString = null;
     private $langs = [
         'eng' => [
             'regex' => '/[a-zA-Z]/mu',
@@ -15,11 +18,17 @@ class StringCheckService
         ],
     ];
 
-    public function boot($string)
+    public function __construct()
+    {
+        $this->checkedString = new CheckedString;
+    }
+
+    public function getMarkedString($string)
     {
         $lang = $this->checkLang($string);
-        $positions = $this->lettersPos($string, $lang);
-        $markedString = $this->markLetter($string, $positions);
+        $markedString = $this->markLetters($string, $lang);
+       // $markedString = $this->markLetter($string, $positions);
+        $create = $this->checkedString->create(['string' => $string,'lang' => $lang,]);
         return [
             'string' => $string,
             'marked-string' => $markedString,
@@ -29,8 +38,7 @@ class StringCheckService
 
     public function checkChanges(string $string, string $lang)
     {
-        $positions = $this->lettersPos($string, $lang);
-        $markedString = $this->markLetter($string, $positions);
+        $markedString = $this->markLetters($string, $lang);
         return ['markedString' => $markedString];
     }
 
@@ -55,26 +63,17 @@ class StringCheckService
         }
     }
 
-    public function lettersPos(string $string, string $lang): array
-    {
-        $langsForMark = $this->langs;
-        unset($langsForMark[$lang]);
-        $positions = [];
-        foreach ($langsForMark as $lang => $props) {
-            for ($i = 0; $i < mb_strlen($string); $i++) {
-                if (preg_match($props['regex'], mb_substr($string, $i, 1))) {
-                    $positions[] = $i;
-                }
-            }
-        }
-        return $positions;
-    }
-
-    public function markLetter(string $string, array $positions): string
+    public function markLetters(string $string, string $lang): string
     {
         $stringAsArr = mb_str_split($string);
-        foreach ($positions as $position){
-            $stringAsArr[$position] = '<span style="background-color:yellow;">' . $stringAsArr[$position] . '</span>';
+        $langsForMark = $this->langs;
+        unset($langsForMark[$lang]);
+        foreach ($stringAsArr as &$letter){
+            foreach ($langsForMark as $langProps) {
+                if (preg_match($langProps['regex'], $letter)) {
+                    $letter = '<span style="background-color:yellow;">' . $letter . '</span>';
+                }
+            }
         }
         return implode($stringAsArr);
     }

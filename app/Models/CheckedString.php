@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Services\StringCheckService;
 
-class Letter extends Model
+class CheckedString extends Model
 {
     use HasFactory;
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Letter;
+use App\Models\CheckedString;
 use App\Services\StringCheckService;
 
 class AppController extends Controller
@@ -13,7 +13,7 @@ class AppController extends Controller
 
     public function __construct()
     {
-        $this->model = new Letter;
+        $this->model = new CheckedString;
         $this->stringCheckService = new StringCheckService;
     }
 
@@ -26,7 +26,7 @@ class AppController extends Controller
     {
         $validated = $request->validate(['string' => 'string|max:1000']);
         $string = $validated['string'];
-        $data = $this->stringCheckService->boot($string);
+        $data = $this->stringCheckService->getMarkedString($string);
         return view('mainpage', ['data' => $data, 'history'=>$this->model->orderBy('id','desc')->get()]);
     }
 
